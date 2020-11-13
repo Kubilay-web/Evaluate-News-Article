@@ -1,32 +1,39 @@
-import { validateURL } from './validateURL'
+
+const { urlChecker } = require("./urlChecker");
 
 function handleSubmit(event) {
     event.preventDefault();
-
-    // check what text was put into the form field
-    let url = document.getElementById('url').value
-    if (!validateURL(url)) {
-        console.log('URL is not valid');
-        return;
-    }
-
-    console.log("::: Form Submitted :::")
-    fetch('//localhost:8081/sentiment-analysis', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ url })
-    })
-    .then(res => res.json())
+ 
+    let formText = document.getElementById('name').value;
+    console.log("::: Form Submitted :::", event)
+  
+    if (urlChecker(formText)) {
+        
+    postData(formText)
     .then(function(res) {
-        document.getElementById('nlp-text').innerHTML = res.text;
-        document.getElementById('polarity').innerHTML = res.polarity;
-        document.getElementById('polarity_confidence').innerHTML = res.polarity_confidence;
-        document.getElementById('subjectivity').innerHTML = res.subjectivity;
-        document.getElementById('subjectivity_confidence').innerHTML = res.subjectivity_confidence;
+        console.log('client side response', res);
+        document.getElementById('confidence').innerHTML = `Confidence: ${res.confidence}`;
+        document.getElementById('subjectivity').innerHTML = `Subjectivity: ${res.subjectivity}`;
+        document.getElementById('text').innerHTML = `Text: ${res.text}`;
     })
 }
-
-
-export{handleSubmit}
+}
+const postData = async(url = '') => {
+    const response = await fetch('http://localhost:8088/test', {
+        method: 'POST',
+        credentials: 'same-origin',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ "url": url }),       
+    });
+    try {
+        const newData = await response.json();
+        console.log(newData)
+        return newData
+    } catch (error) {
+        console.log("error", error);
+    }
+}
+export { handleSubmit }
