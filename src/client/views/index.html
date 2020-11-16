@@ -3,18 +3,15 @@
     <head>
         <meta charset="utf-8">
         <title>Test</title>
-       
-        <script type="text/javascript" src="/js/nameChecker.js"></script>
-        <script type="text/javascript" src="/js/formHandler.js"></script>
-        <script type="text/javascript" src="/js/validateURL.test.js"></script>
         <link rel="stylesheet" href="/styles/resets.css">
         <link rel="stylesheet" href="/styles/base.css">
         <link rel="stylesheet" href="/styles/header.css">
         <link rel="stylesheet" href="/styles/form.css">
-        <link rel="stylesheet" href="/styles/footer.css">
+        
     </head>
 
     <body>
+
         <header>
             <div class="">
                 Logo
@@ -27,38 +24,27 @@
         <main>
             <section>
                 <form class="" onsubmit="return Client.handleSubmit(event)">
-                    <label for="url">Type in a URL to the text you want to analyse</label>
-                    <input id="url" type="text" name="input" value="" placeholder="URL">
-                    <input type="submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">
+                    <textarea class= "myInput" id="text" placeholder="Enter your text here" rows="2" cols="50"></textarea>
+                    <button type="submit" id="generate" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return handleSubmit(event)">Analyze The Text</button>
                 </form>
             <section>
 
             <section>
-                <strong>Analysis Results:</strong>
-                <ul>
-                    <li>
-                        <h4>Text Polarity:</h3>
-                        <p id="polarity"></p>
-                        <h4>Confidence:</h4>
-                        <p id="polarity_confidence"></p>
-                    </li>
-                    <li>
-                        <h4>Text Subjectivity:</h3>
-                        <p id="subjectivity"></p>
-                        <h4>Confidence:</h4>
-                        <p id="subjectivity_confidence"></p>
-                    </li>
-                    <li>
-                        <h3>Text:</h3>
-                        <p id="nlp-text"></p>
-                    </li>
-                </ul>
+                <strong>Form Results:</strong>
+                <div id="results"></div>
+                <div id="inip"></div>
+                <div id="endp"></div>
+                <div id="bop"></div>
+                <div id="confidence"></div>
+                <div id="score_tag"></div>
+                <div id="agreement"></div>
             </section>
         </main>
 
         <footer>
             <p>This is a footer</p>
         </footer>
+
 
         <script>
             // Check that service workers are supported
@@ -69,5 +55,7 @@
                 });
             }
            </script>
+
     </body>
 </html>
+
